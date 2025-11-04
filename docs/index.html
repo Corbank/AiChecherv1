@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Checker (Web)</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header>
+    <h1>AI Checker</h1>
+    <p>Analyze text locally in your browser. No server required.</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <label for="text">Input text</label>
+      <textarea id="text" placeholder="Paste or type text here..." rows="12" spellcheck="true"></textarea>
+
+      <div class="options">
+        <div class="option">
+          <label for="lang">Language (spellcheck)</label>
+          <select id="lang">
+            <option value="en_US" selected>English (US)</option>
+            <option value="en_GB">English (UK)</option>
+          </select>
+        </div>
+        <div class="option">
+          <label for="longThreshold">Long sentence threshold</label>
+          <input id="longThreshold" type="number" min="5" max="200" value="30" />
+        </div>
+        <div class="option">
+          <label for="maxDup">Max allowed exact duplicate sentences</label>
+          <input id="maxDup" type="number" min="0" max="20" value="1" />
+        </div>
+        <div class="option checkbox">
+          <label>
+            <input id="enableSpell" type="checkbox" checked /> Enable spellcheck (downloads dictionary ~500KB)
+          </label>
+        </div>
+        <div class="option checkbox">
+          <label>
+            <input id="showJson" type="checkbox" /> Show JSON output
+          </label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="analyzeBtn">Analyze</button>
+        <button id="exampleBtn" class="secondary">Load example</button>
+      </div>
+    </section>
+
+    <section class="results">
+      <h2>Results</h2>
+      <pre id="human"></pre>
+      <pre id="json" class="hidden"></pre>
+    </section>
+  </main>
+
+  <!-- Optional spellchecker library, loaded dynamically in app.js when enabled -->
+  <script>
+    window.TYPO_CDN = "https://cdn.jsdelivr.net/npm/typo-js@1.2.1";
+  </script>
+  <script src="./app.js"></script>
+</body>
+</html>
