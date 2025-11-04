@@ -344,7 +344,18 @@
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (file) {
-                displayFileInfo(file);
+                // Validate file type using both extension and MIME type
+                const validExtensions = file.name.endsWith('.pdf') || file.name.endsWith('.docx') || file.name.endsWith('.doc');
+                const validMimeTypes = file.type === 'application/pdf' || 
+                                      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+                                      file.type === 'application/msword';
+                
+                if (validExtensions && (validMimeTypes || file.type === '')) {
+                    displayFileInfo(file);
+                } else {
+                    alert('Please select a valid PDF or DOCX file.');
+                    event.target.value = ''; // Clear the invalid selection
+                }
             }
         }
 
@@ -431,13 +442,19 @@
             const files = e.dataTransfer.files;
             if (files.length > 0) {
                 const file = files[0];
-                // Check if file is PDF or DOCX
-                if (file.name.endsWith('.pdf') || file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
+                // Check if file is PDF or DOCX using both extension and MIME type
+                const validExtensions = file.name.endsWith('.pdf') || file.name.endsWith('.docx') || file.name.endsWith('.doc');
+                const validMimeTypes = file.type === 'application/pdf' || 
+                                      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+                                      file.type === 'application/msword';
+                
+                if (validExtensions && (validMimeTypes || file.type === '')) {
+                    // Allow if MIME type matches or is empty (some systems don't set MIME type)
                     displayFileInfo(file);
                     // Note: We store the file directly in selectedFile, 
                     // input.files cannot be directly assigned
                 } else {
-                    alert('Please upload a PDF or DOCX file.');
+                    alert('Please upload a valid PDF or DOCX file.');
                 }
             }
         });
