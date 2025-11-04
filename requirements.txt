@@ -1,0 +1,2 @@
+pyspellchecker>=0.7
+textstat>=0.7.3
