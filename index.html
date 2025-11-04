@@ -265,8 +265,8 @@
 
         <div class="input-method">
             <div class="tabs">
-                <button class="tab active" onclick="switchTab('text')">📝 Paste Text</button>
-                <button class="tab" onclick="switchTab('file')">📄 Upload File</button>
+                <button class="tab active" onclick="switchTab(event, 'text')">📝 Paste Text</button>
+                <button class="tab" onclick="switchTab(event, 'file')">📄 Upload File</button>
             </div>
 
             <div id="text-tab" class="tab-content active">
@@ -316,7 +316,7 @@
         let currentTab = 'text';
         let selectedFile = null;
 
-        function switchTab(tab) {
+        function switchTab(event, tab) {
             currentTab = tab;
             
             // Update tab buttons
